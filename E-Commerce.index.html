@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUXE — Premium Fashion Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══ LOADER ══ -->
+<div id="loader"><div class="loader-text">LUXE</div></div>
+
+<!-- ══ ANNOUNCEMENT BAR ══ -->
+<div class="announcement">
+  Free shipping on orders over <span>₹2,499</span> &nbsp;·&nbsp; Use code <span>LUXE20</span> for 20% off your first order
+</div>
+
+<!-- ══ NAVIGATION ══ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">LUXE</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="filterProducts('all')">New Arrivals</a></li>
+    <li><a href="#" onclick="filterProducts('women')">Women</a></li>
+    <li><a href="#" onclick="filterProducts('men')">Men</a></li>
+    <li><a href="#">Collections</a></li>
+    <li><a href="#" onclick="filterProducts('sale')">Sale</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div class="search-bar">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" placeholder="Search products…" id="searchInput" oninput="handleSearch()">
+    </div>
+    <button class="nav-icon-btn" title="Wishlist" onclick="showToast('❤️ View your wishlist')">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </button>
+    <button class="nav-icon-btn" title="Cart" onclick="toggleCart()">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" style="padding:0">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Summer Collection 2025</div>
+    <h1 class="hero-title">Define Your<br><em>Style Story</em></h1>
+    <p class="hero-desc">Curated fashion that speaks before you do. Discover premium pieces crafted for those who know that true luxury lies in the details.</p>
+    <div class="hero-actions">
+      <a href="#featured" class="btn-primary">Shop Now</a>
+      <a href="#categories" class="btn-outline">Explore Lookbook</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">12K+</div>
+        <div class="stat-label">Products</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Satisfaction</div>
+      </div>
+      <div>
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Brands</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-visual-grid">
+      <div class="hero-img-block span2">
+        <img src="images/hero.jpg" alt="Fashion hero">
+      </div>
+    </div>
+    <div class="hero-badge">✦ New Season</div>
+  </div>
+</section>
+
+<!-- ══ MARQUEE ══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- ══ CATEGORIES ══ -->
+<section id="categories" class="categories-section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Browse By</div>
+      <h2 class="section-title">Shop Categories</h2>
+    </div>
+    <a href="#" class="view-all">View All →</a>
+  </div>
+  <div class="categories-grid" id="categoriesGrid"></div>
+</section>
+
+<!-- ══ FEATURED PRODUCTS ══ -->
+<section id="featured">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Handpicked For You</div>
+      <h2 class="section-title">Featured Products</h2>
+    </div>
+    <a href="#" class="view-all">View All →</a>
+  </div>
+  <div class="filter-tabs" id="filterTabs"></div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- ══ SALE BANNER ══ -->
+<div class="banner-section">
+  <div class="banner-left">
+    <div class="banner-eyebrow">Limited Time Offer</div>
+    <h2 class="banner-title">Summer Sale Is<br>Here to Stay</h2>
+    <p class="banner-desc">Get up to 50% off on selected items from our premium collection. New styles added weekly.</p>
+    <a href="#" class="btn-primary" style="width:fit-content"
+       onclick="filterProducts('sale'); document.getElementById('featured').scrollIntoView({behavior:'smooth'}); return false;">
+      Shop the Sale
+    </a>
+  </div>
+  <div class="banner-right">
+    <img src="images/sale-banner.jpg" alt="Sale banner">
+    <div class="banner-right-overlay"></div>
+    <div class="banner-price-tag">
+      <div class="off">50%</div>
+      <div class="off-label">Off Select Styles</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="testimonials-section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">What They Say</div>
+      <h2 class="section-title">Customer Love</h2>
+    </div>
+  </div>
+  <div class="testimonials-grid" id="testimonialsGrid"></div>
+</section>
+
+<!-- ══ NEWSLETTER ══ -->
+<div class="newsletter-section">
+  <div class="section-label" style="justify-content:center;color:var(--gold)">Stay In The Loop</div>
+  <h2 class="newsletter-title">Get Exclusive Access</h2>
+  <p class="newsletter-sub">New arrivals, member-only deals, and style inspo — straight to your inbox.</p>
+  <div class="newsletter-form">
+    <input type="email" class="newsletter-input" placeholder="Your email address…" id="nlEmail">
+    <button class="newsletter-btn" onclick="handleNewsletter()">Subscribe</button>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div>
+    <div class="footer-brand-name">LUXE</div>
+    <p class="footer-brand-desc">Your destination for premium fashion curated from the world's finest brands. Style that tells your story.</p>
+    <div class="footer-socials">
+      <a href="#" class="social-btn" title="Instagram">IG</a>
+      <a href="#" class="social-btn" title="Twitter">TW</a>
+      <a href="#" class="social-btn" title="Pinterest">PT</a>
+      <a href="#" class="social-btn" title="Facebook">FB</a>
+    </div>
+  </div>
+  <div>
+    <div class="footer-col-title">Shop</div>
+    <ul class="footer-links">
+      <li><a href="#">New Arrivals</a></li>
+      <li><a href="#">Women</a></li>
+      <li><a href="#">Men</a></li>
+      <li><a href="#">Accessories</a></li>
+      <li><a href="#">Sale</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Help</div>
+    <ul class="footer-links">
+      <li><a href="#">Size Guide</a></li>
+      <li><a href="#">Shipping Policy</a></li>
+      <li><a href="#">Returns &amp; Exchanges</a></li>
+      <li><a href="#">Track My Order</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Company</div>
+    <ul class="footer-links">
+      <li><a href="#">About LUXE</a></li>
+      <li><a href="#">Careers</a></li>
+      <li><a href="#">Press</a></li>
+      <li><a href="#">Sustainability</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <div class="footer-copy">© 2025 LUXE Fashion Store. All rights reserved.</div>
+  <div class="footer-payments">
+    <div class="payment-badge">VISA</div>
+    <div class="payment-badge">MC</div>
+    <div class="payment-badge">UPI</div>
+    <div class="payment-badge">PayTM</div>
+    <div class="payment-badge">GPay</div>
+  </div>
+</div>
+
+<!-- ══ CART SIDEBAR ══ -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <span class="cart-title">Your Bag (<span id="cartCount">0</span>)</span>
+    <button class="cart-close" onclick="toggleCart()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+    <div class="cart-subtotal"><span>Shipping</span><span style="color:var(--success);font-weight:600">FREE</span></div>
+    <div class="cart-subtotal total"><span>Total</span><span id="cartTotal">₹0</span></div>
+    <button class="checkout-btn" onclick="handleCheckout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- ══ PRODUCT MODAL ══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="productModal">
+    <button class="modal-close-btn" onclick="document.getElementById('modalOverlay').classList.remove('open')">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+    <div class="modal-img"><img id="modalImg" src="" alt=""></div>
+    <div class="modal-content">
+      <div class="modal-brand" id="modalBrand"></div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-price-row">
+        <span class="modal-price" id="modalPrice"></span>
+        <span class="modal-price-old" id="modalOldPrice"></span>
+      </div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="size-label">Select Size</div>
+      <div class="size-grid" id="modalSizes"></div>
+      <button class="modal-add-btn" id="modalAddBtn" onclick="addToCartFromModal()">Add to Bag</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TOAST ══ -->
+<div id="toast"><span id="toastMsg">Added to bag!</span></div>
+
+<script src="app.js"></script>
+</body>
+</html>
